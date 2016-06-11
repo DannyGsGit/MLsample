@@ -38,7 +38,8 @@ fit <- rpart(objective_function,
 # View resulting model
 plot(fit)
 text(fit)
-summary(fit)
+model_summary <- summary(fit)
+print(model_summary)
 
 
 #### Cross-validation ####
@@ -51,8 +52,12 @@ confusion_matrix <- table(testing_data$Species,
 
 true_positive_rate <- 100 * sum(testing_data$Species == testing_data$prediction) / nrow(testing_data)
 
-print(confusion_matrix)
-print(true_positive_rate)
+# print(confusion_matrix)
+# print(true_positive_rate)
 
 #### Export model ####
 save(fit, file = "model.RData")
+
+
+save(model_summary, file = "model_summary.RData")  # Model details
+save(confusion_matrix, file = "model_confusion_matrix.RData")  # Confusion matrix
