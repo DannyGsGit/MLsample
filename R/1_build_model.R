@@ -9,6 +9,10 @@ library(feather)
 my_data <- read_feather("mydata.feather")
 
 
+
+
+
+
 #### Split dataset ####
 
 # Set % of data to use for training
@@ -21,6 +25,11 @@ train_index <- sample((1:nrow(my_data)),
 
 training_data <- my_data[train_index, ]  # Training dataset using rows randomly sampled
 testing_data <- my_data[-train_index, ]  # Test set using remaining rows
+
+
+
+
+
 
 
 #### Train model ####
@@ -42,22 +51,33 @@ model_summary <- summary(fit)
 print(model_summary)
 
 
+
+
+
+
 #### Cross-validation ####
 testing_data$prediction <- predict(fit, testing_data, type = "class")
 
 
-#### Validation Metrics ####
+# Validation Metrics
 confusion_matrix <- table(testing_data$Species,
                           testing_data$prediction)
 
 true_positive_rate <- 100 * sum(testing_data$Species == testing_data$prediction) / nrow(testing_data)
 
-# print(confusion_matrix)
-# print(true_positive_rate)
+# Print validation results
+print(confusion_matrix)
+print(true_positive_rate)
+
+
+
+
+
 
 #### Export model ####
+# Export model:
 save(fit, file = "model.RData")
 
-
+# Export validation results:
 save(model_summary, file = "model_summary.RData")  # Model details
 save(confusion_matrix, file = "model_confusion_matrix.RData")  # Confusion matrix
