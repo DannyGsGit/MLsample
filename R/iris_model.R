@@ -20,7 +20,7 @@ iris_prediction <- function(Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
 
 
   # Run prediction with input data
-  prediction_data$Species <- predict(fit, prediction_data, type = "class")
+  prediction_data$Species <- predict(iris_model, prediction_data, type = "class")
 
 
   # Return the species

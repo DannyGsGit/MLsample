@@ -39,15 +39,15 @@ library(rpart)
 objective_function <- Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
 
 # Fit the model to the training data using objective function
-fit <- rpart(objective_function,
+iris_model <- rpart(objective_function,
              data = training_data,
              method = "class",
              control = rpart.control(minsplit = 4))
 
 # View resulting model
-plot(fit)
-text(fit)
-model_summary <- summary(fit)
+plot(iris_model)
+text(iris_model)
+model_summary <- summary(iris_model)
 print(model_summary)
 
 
@@ -56,7 +56,7 @@ print(model_summary)
 
 
 #### Cross-validation ####
-testing_data$prediction <- predict(fit, testing_data, type = "class")
+testing_data$prediction <- predict(iris_model, testing_data, type = "class")
 
 
 # Validation Metrics
@@ -76,7 +76,7 @@ print(true_positive_rate)
 
 #### Export model ####
 # Export model:
-save(fit, file = "model.RData")
+save(iris_model, file = "model.RData")
 
 # Export validation results:
 save(model_summary, file = "model_summary.RData")  # Model details
